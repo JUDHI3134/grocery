@@ -9,12 +9,13 @@ const SellerLogin = () => {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
+        setIsSeller(true)
     }
 
     useEffect(() => {
         if (isSeller) {
             navigate("/seller")
-            setIsSeller(true)
+            // setIsSeller(true)
         }
     },[isSeller])
 
@@ -30,7 +31,7 @@ const SellerLogin = () => {
                   <p>Password</p>
                   <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" placeholder='Enter your password' className='border border-gray-200 rounded w-full p-2 mt-1 outline-primary' required />
               </div>   
-              <button className='bg-primary text-white w-full py-2 rounded-md cursor-pointer'>Login</button>
+              <button type='submit' className='bg-primary text-white w-full py-2 rounded-md cursor-pointer'>Login</button>
       </div>
     </form>
   )
