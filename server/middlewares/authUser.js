@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken"
 
 
 const authUser = async (req, res, next) => {
@@ -12,15 +12,18 @@ const authUser = async (req, res, next) => {
         const tokenDecode = jwt.verify(token, process.env.JWT_SECRET)
 
         if (tokenDecode.id) {
+            req.body = req.body || {};
             req.body.userId = tokenDecode.id
         } else {
             return res.json({ success: false, message: "Not Authorized.."}) 
         }
 
-        next()
+        next();
 
     } catch (error) {
-        res.json({success: false, message: error.message})
+        console.log(error)
+        res.json({ success: false, message: error.message })
+        
     }
 }
 
