@@ -34,3 +34,19 @@ export const placeOrderCOD = async (req, res) => {
         res.json({success: false, message: error.message})
     }
 }
+
+//Get Orders By userId : /api/order/user
+export const getUserOrders = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        const orders = await Order.find({
+            userId,
+            $or: [{paymentType: "COD"}, {isPaid: true}]
+        }).populate("items.product address").sort({ createdAt: -1 })
+        
+        res.json({success: true, orders})
+    } catch (error) {
+        console.log(error.message)
+        res.json({success: false, message: error.message})
+    }
+}
